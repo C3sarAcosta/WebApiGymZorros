@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApiGymZorros.Contextos;
@@ -11,9 +12,10 @@ using WebApiGymZorros.Contextos;
 namespace WebApiGymZorros.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220722024610_Planes")]
+    partial class Planes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,9 +261,6 @@ namespace WebApiGymZorros.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("text");
-
                     b.Property<string>("Descripcion")
                         .HasColumnType("text");
 
@@ -276,38 +275,7 @@ namespace WebApiGymZorros.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.ToTable("Planes");
-                });
-
-            modelBuilder.Entity("WebApiGymZorros.Entidades.PlanUsuario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("FechaFin")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("FechaInicio")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("PlanId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UsuarioId")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlanId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("PlanesUsuarios");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -359,35 +327,6 @@ namespace WebApiGymZorros.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WebApiGymZorros.Entidades.Plan", b =>
-                {
-                    b.HasOne("WebApiGymZorros.Entidades.ApplicationUser", null)
-                        .WithMany("Planes")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("WebApiGymZorros.Entidades.PlanUsuario", b =>
-                {
-                    b.HasOne("WebApiGymZorros.Entidades.Plan", "Plan")
-                        .WithMany()
-                        .HasForeignKey("PlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApiGymZorros.Entidades.ApplicationUser", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId");
-
-                    b.Navigation("Plan");
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("WebApiGymZorros.Entidades.ApplicationUser", b =>
-                {
-                    b.Navigation("Planes");
                 });
 #pragma warning restore 612, 618
         }

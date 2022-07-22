@@ -14,5 +14,6 @@ namespace WebApiGymZorros.Entidades
         public int NumeroExterior { get; set; }
         public int NumeroInterior { get; set; }
         public string Telefono { get; set; }
+        public List<Plan> Planes { get; set; }
     }
 }

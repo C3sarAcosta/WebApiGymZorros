@@ -17,5 +17,7 @@ namespace WebApiGymZorros.Contextos
         }
         
         public DbSet<ApplicationUser> Usuarios { get; set; }
+        public DbSet<Plan> Planes { get; set; }
+        public DbSet<PlanUsuario> PlanesUsuarios { get; set; }
     }
 }
